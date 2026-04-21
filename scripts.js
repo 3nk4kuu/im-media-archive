@@ -42,6 +42,34 @@ function resetDetailsPanel() {
   }
 }
 
+// get random song
+function getRandomSong() {
+  if (currentData.length === 0) return;
+
+  const randomIndex = Math.floor(Math.random() * currentData.length);
+  const randomSong = currentData[randomIndex];
+
+  selectedItem = randomSong;
+  songDetails(randomSong);
+  
+  // prevent whole page from scrolling when random/shuffle button is pressed
+  songsGrid(currentData); 
+  setTimeout(() => {
+    const container = document.getElementById("grid-container");
+    const allSquares = document.querySelectorAll('.cover-square');
+    const targetSquare = allSquares[randomIndex];
+
+    if (targetSquare && container) {
+      const songTop = targetSquare.offsetTop;
+      const containerTop = container.offsetTop;      
+      container.scrollTo({
+        top: songTop - containerTop - 10,
+        behavior: 'smooth'
+      });
+    }
+  }, 50);
+}
+
 // get song details & display them in the side panel
 function songDetails(song) {
   const panel = document.getElementById("details-panel");
@@ -85,13 +113,13 @@ function songDetails(song) {
   const safeTitle = song.title.replace(/'/g, "\\'");
   panel.innerHTML = `
     <div class="details-header">
-      ${coverHTML}
-      <div class="details-title-box">
-        <button class="${favClass}" onclick="toggleFavorite('${safeTitle}')">${favIcon}</button>
-        <h2>${song.title}</h2>
-        <h3>${song.artist}</h3>
-      </div>
+    ${coverHTML}
+    <div class="details-title-box">
+      <button class="${favClass}" onclick="toggleFavorite(${song.id})">${favIcon}</button>
+      <h2>${song.title}</h2>
+      <h3>${song.artist}</h3>
     </div>
+   </div>
 
     <table class="details-table">
       <tr><td>BPM</td><td>${song.bpm || '---'}</td></tr>
@@ -117,12 +145,14 @@ function songsGrid(items) {
     square.className = "cover-square";
 
     // song selected
-    if (selectedItem && selectedItem.title === song.title) {
+    if (selectedItem && selectedItem.id === song.id) {
       square.classList.add("active");
     }
+
     if (song.cover) {
       square.style.backgroundImage = `url('${song.cover}')`;
     }
+
     square.onclick = () => {
       selectedItem = song;
       songDetails(song);
@@ -135,14 +165,15 @@ function songsGrid(items) {
 }
 
 // toggle 'favorite' song
-function toggleFavorite(songTitle) {
-  const song = songs.find(s => s.title === songTitle);
+function toggleFavorite(songId) {
+  const song = songs.find(s => s.id === songId);
   if (song) {
     song.favorite = !song.favorite;    
     handleSearch();
     
     // keep details open if song is in currentData
-    if (currentData.includes(song)) {
+    // checks if songs is in visible list using id
+    if (currentData.some(s => s.id === songId)) {
       selectedItem = song;
       songDetails(song);
     }
@@ -303,6 +334,14 @@ document.addEventListener("DOMContentLoaded", () => {
     input.addEventListener('change', handleSearch);
   });
 
+  const randomBtn = document.getElementById('random-btn');
+    if (randomBtn) {
+      randomBtn.addEventListener('click', (e) => {
+      e.preventDefault();     
+      getRandomSong();
+    });
+  }
+
   // togle filter/sort panel
   const filterIcon = document.querySelector('.filter-icon'); 
   const filterPanel = document.getElementById('filter-panel');
@@ -334,5 +373,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
-
-// TODO: add song randomizer?

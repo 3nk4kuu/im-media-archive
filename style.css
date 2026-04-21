@@ -95,8 +95,9 @@ h4 { font-size: 24px; }
   flex: 6;
   display: flex;
   flex-direction: column;
+  height: 100%; 
+  min-height: 0; 
   overflow: hidden; 
-  min-width: 0;
 }
 
 /* songs grid */
@@ -107,11 +108,13 @@ h4 { font-size: 24px; }
   align-content: start; 
   gap: 20px;  
   padding: 10px 20px 40px 10px; 
-  box-sizing: border-box; 
+  box-sizing: border-box;   
+  scrollbar-width: none;  
+  -ms-overflow-style: none;
   overflow-y: auto;
   overflow-x: hidden;   
-  scrollbar-width: none;  
-  -ms-overflow-style: none;  
+  flex-grow: 1;
+  height: 100%;  
 }
 
 .grid-container::-webkit-scrollbar {
@@ -453,7 +456,7 @@ h4 { font-size: 24px; }
     background: rgba(255, 248, 211, 0.6);
 }
 
-/* Tooltip Content */
+/* tooltip */
 .icon-btn::after, .random-btn::after {
   content: attr(data-tooltip); 
   position: absolute;
@@ -474,7 +477,6 @@ h4 { font-size: 24px; }
   z-index: 10000;
 }
 
-/* Tooltip Arrow */
 .icon-btn::before, .random-btn::before {
   content: "";
   position: absolute;
