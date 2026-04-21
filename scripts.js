@@ -193,3 +193,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // TODO: make filtering popup/tab & functions
+// TODO: add clear status?

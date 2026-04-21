@@ -1,4 +1,6 @@
 const TAGS = {
+  // TODO: get rid of colors on data?
+  // TODO: add song covers/imgs
   // games
   CYTUS: { label: "Cytus", color: "#008080", type: "game" },
   CYTUS_II: { label: "Cytus II", color: "#7A9D96", type: "game" },
