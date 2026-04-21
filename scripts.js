@@ -35,12 +35,12 @@ function formatTime(totalSeconds) {
 }
 
 // placeholder for details
-  function resetDetailsPanel() {
-    const panel = document.getElementById("details-panel");
-    if (panel) {
-      panel.innerHTML = `<div class="placeholder-text">Select a song to view details.</div>`;
-    }
+function resetDetailsPanel() {
+  const panel = document.getElementById("details-panel");
+  if (panel) {
+    panel.innerHTML = `<div class="placeholder-text">Select a song to view details.</div>`;
   }
+}
 
 // get song details & display them in the side panel
 function songDetails(song) {
@@ -76,8 +76,6 @@ function songDetails(song) {
         }).join("");
       return `<div class="diff-badges-row">${badges}</div>`;
     }).join("");
-
-
 
   // song details & image
   const lengthStr = formatTime(song.length);
@@ -140,46 +138,132 @@ function songsGrid(items) {
 function toggleFavorite(songTitle) {
   const song = songs.find(s => s.title === songTitle);
   if (song) {
-    song.favorite = !song.favorite;
-    if (selectedItem && selectedItem.title === songTitle) {
-      songDetails(selectedItem);
+    song.favorite = !song.favorite;    
+    handleSearch();
+    
+    // keep details open if song is in currentData
+    if (currentData.includes(song)) {
+      selectedItem = song;
+      songDetails(song);
     }
   }
 }
 
-// search
+// search, filter, and sort
 function handleSearch() {
   const searchInput = document.getElementById("search-bar");
-  const searchTerm = searchInput.value.toLowerCase().trim();
+  const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
-  if (!searchTerm) {
-    currentData = songs;
-    selectedItem = null;
-    resetDetailsPanel();
-    songsGrid(currentData);
-    return;
-  }
+  // get active filters
+  const favOnly = document.querySelector('input[name="fav"]')?.checked;
+  const selectedGames = Array.from(document.querySelectorAll('input[name="game"]:checked')).map(el => el.value);
+  const selectedChars = Array.from(document.querySelectorAll('input[name="character"]:checked')).map(el => el.value);
+  const selectedDiffs = Array.from(document.querySelectorAll('input[name="diff"]:checked')).map(el => el.value.toLowerCase());
 
-  currentData = songs.filter(song => {
-    const matchesTitle = song.title.toLowerCase().includes(searchTerm);
-    const matchesArtist = song.artist.toLowerCase().includes(searchTerm);
-
-    const matchesTags = Object.keys(song.versions || {}).some(gameKey => {
-      const gameNameMatch = TAGS[gameKey]?.label?.toLowerCase().includes(searchTerm);
-
-      const specificTagsMatch = (song.versions[gameKey].tags || []).some(tag => {
-          let tagLabel = TAGS[tag]?.label?.toLowerCase() || "";
-          tagLabel = tagLabel.replace("chapter", "").trim();
-          if (!tagLabel) return false;
-          return tagLabel.includes(searchTerm);
+  let filteredData = songs.filter(song => {
+    // search
+    if (searchTerm) {
+      const matchesTitle = song.title.toLowerCase().includes(searchTerm);
+      const matchesArtist = song.artist.toLowerCase().includes(searchTerm);
+      const matchesTags = Object.keys(song.versions || {}).some(gameKey => {
+        const gameNameMatch = TAGS[gameKey]?.label?.toLowerCase().includes(searchTerm);
+        const specificTagsMatch = (song.versions[gameKey].tags || []).some(tag => {
+            let tagLabel = TAGS[tag]?.label?.toLowerCase() || "";
+            tagLabel = tagLabel.replace("chapter", "").trim();
+            return tagLabel && tagLabel.includes(searchTerm);
+        });
+        return gameNameMatch || specificTagsMatch;
       });
+      if (!matchesTitle && !matchesArtist && !matchesTags) return false;
+    }
 
-      return gameNameMatch || specificTagsMatch;
-    });
+    // fav filter
+    if (favOnly && !song.favorite) return false;
 
-    return matchesTitle || matchesArtist || matchesTags;
+    // game filter
+    if (selectedGames.length > 0) {
+      const hasGame = selectedGames.some(game => song.versions[game]);
+      if (!hasGame) return false;
+    }
+
+    // character filter
+    if (selectedChars.length > 0) {
+      const hasChar = Object.values(song.versions).some(v => 
+        v.tags && v.tags.some(tag => selectedChars.includes(tag))
+      );
+      if (!hasChar) return false;
+    }
+
+    // diff filter
+    if (selectedDiffs.length > 0) {
+      const hasDiff = Object.values(song.versions).some(v => {
+        if (!v.difficulties) return false;
+        
+        const songDiffKeys = Object.keys(v.difficulties).map(d => d.toLowerCase());
+
+        return selectedDiffs.some(filterDiff => {
+          if (filterDiff === 'special') {
+            // special includes crash and dream
+            return songDiffKeys.includes('crash') || songDiffKeys.includes('dream') || songDiffKeys.includes('special');
+          }
+          return songDiffKeys.includes(filterDiff);
+        });
+      });
+      if (!hasDiff) return false;
+    }
+
+    return true; 
   });
 
+  // sort
+  const sortBy = document.querySelector('input[name="sort_by"]:checked')?.value || 'title';
+  const sortDir = document.querySelector('input[name="sort_dir"]:checked')?.value || 'asc';
+
+  if (sortBy) {
+    filteredData.sort((a, b) => {
+      let valA, valB;
+
+      if (sortBy === 'title') { valA = a.title.toLowerCase(); valB = b.title.toLowerCase(); }
+      else if (sortBy === 'artist') { valA = a.artist.toLowerCase(); valB = b.artist.toLowerCase(); }
+      else if (sortBy === 'length') { valA = a.length; valB = b.length; }
+      else if (sortBy === 'bpm') { 
+        valA = parseInt(a.bpm) || 0;
+        valB = parseInt(b.bpm) || 0; 
+      }
+      else if (sortBy === 'level') {
+        const getMaxLevel = (song) => {
+          let max = 0;
+          Object.values(song.versions).forEach(v => {
+            Object.values(v.difficulties).forEach(d => {  
+              // making sure that songs with + difficulty are harder than songs without + difficulty     
+              let num = parseInt(d.level) || 0;
+              
+              if (String(d.level).includes('+')) {
+                num += 0.5;
+              }
+              
+              // crash difficulties get higher numbers
+              if (d.level === 'A') num = 100;
+              if (d.level === 'B') num = 101;
+              if (d.level === 'Y') num = 102;
+
+              if (num > max) max = num;
+            });
+          });
+          return max;
+        };
+        valA = getMaxLevel(a);
+        valB = getMaxLevel(b);
+      }
+
+      // asc or desc order
+      if (valA < valB) return sortDir === 'asc' ? -1 : 1;
+      if (valA > valB) return sortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
+
+  currentData = filteredData;
   selectedItem = null;
   resetDetailsPanel();
 
@@ -190,11 +274,7 @@ function handleSearch() {
     container.style.justifyContent = "center";
     container.style.alignItems = "center";
     container.style.height = "100%";
-    container.innerHTML = `
-      <div class="placeholder-text">
-        No results found for "${searchTerm}"
-      </div>
-    `;
+    container.innerHTML = `<div class="placeholder-text">No results match your filters.</div>`;
   } else {
     // populate grid and/or search has result
     container.style.display = "";
@@ -205,20 +285,54 @@ function handleSearch() {
   }
 }
 
-// populate grid
+// populate grid & setup listeners
 document.addEventListener("DOMContentLoaded", () => {
   if (typeof songs !== 'undefined') {
-    currentData = songs;
-    songsGrid(currentData);
+    handleSearch(); 
   } else {
     console.error("Songs node lost. System requires resynchronization.");
   }
+
   const searchInput = document.getElementById("search-bar");
   if (searchInput) {
     searchInput.addEventListener("input", handleSearch);
   }
+
+  const filterInputs = document.querySelectorAll('.filter-panel input');
+  filterInputs.forEach(input => {
+    input.addEventListener('change', handleSearch);
+  });
+
+  // togle filter/sort panel
+  const filterIcon = document.querySelector('.filter-icon'); 
+  const filterPanel = document.getElementById('filter-panel');
+  const closeFilterBtn = document.getElementById('close-filter-btn');
+
+  if (filterIcon && filterPanel) {
+    filterIcon.addEventListener('click', () => filterPanel.classList.add('open'));
+  }
+  if (closeFilterBtn && filterPanel) {
+    closeFilterBtn.addEventListener('click', () => filterPanel.classList.remove('open'));
+  }
+
+  // reset filters
+  const resetFilterBtn = document.getElementById('reset-filter-btn');
+  if (resetFilterBtn) {
+    // uncheck filter boxes
+    resetFilterBtn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-panel input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+      });
+
+      // reset sorting to defaults
+      const titleRadio = document.querySelector('.filter-panel input[name="sort_by"][value="title"]');
+      if (titleRadio) titleRadio.checked = true;
+      const ascRadio = document.querySelector('.filter-panel input[name="sort_dir"][value="asc"]');
+      if (ascRadio) ascRadio.checked = true;
+
+      handleSearch();
+    });
+  }
 });
 
-// TODO: make filtering popup/tab & functions
-// TODO: add clear status?
 // TODO: add song randomizer?

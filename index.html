@@ -33,5 +33,137 @@
         <div class="placeholder-text">Select a song to view details.</div>
         </div>
     </div>
+    <div id="filter-panel" class="filter-panel">
+  <div class="filter-panel-header">
+    <h2>Filter</h2>
+    <button id="reset-filter-btn" class="icon-btn" title="Clear All Filters">
+      Reset Filters
+      <img src="assets/refresh.svg" class="refresh-icon" alt="Refresh" />
+    </button>
+    <button id="close-filter-btn" class="close-filter-btn">&times;</button>
+  </div>
+
+  <div class="filter-section">
+    <h3>Favorite</h3>
+    <div class="filter-grid">
+      <label class="custom-checkbox">
+        <input type="checkbox" name="fav" value="true">
+        <span class="checkmark"></span> ♥
+      </label>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <h3>Game</h3>
+    <div class="filter-grid">
+      <label class="custom-checkbox">
+        <input type="checkbox" name="game" value="CYTUS">
+        <span class="checkmark"></span> Cytus
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="game" value="CYTUS_II">
+        <span class="checkmark"></span> Cytus II
+      </label>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <h3>Character</h3>
+    <div class="filter-grid">
+      <label class="custom-checkbox">
+        <input type="checkbox" name="character" value="PAFF">
+        <span class="checkmark"></span> PAFF
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="character" value="NEKO">
+        <span class="checkmark"></span> NEKO
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="character" value="ROBO">
+        <span class="checkmark"></span> ROBO_Head
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="character" value="GRAFF_J">
+        <span class="checkmark"></span> Graff.J
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="character" value="IVY">
+        <span class="checkmark"></span> Ivy
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="character" value="ALICE">
+        <span class="checkmark"></span> Alice
+      </label>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <h3>Difficulty</h3>
+    <div class="filter-grid">
+      <label class="custom-checkbox">
+        <input type="checkbox" name="diff" value="EASY">
+        <span class="checkmark"></span> EASY
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="diff" value="HARD">
+        <span class="checkmark"></span> HARD
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="diff" value="CHAOS">
+        <span class="checkmark"></span> CHAOS
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="diff" value="GLITCH">
+        <span class="checkmark"></span> GLITCH
+      </label>
+      <label class="custom-checkbox">
+        <input type="checkbox" name="diff" value="SPECIAL">
+        <span class="checkmark"></span> SPECIAL
+      </label>
+    </div>
+  </div>
+
+  <h2 class="sort-header">Sort</h2>
+
+  <div class="filter-section">
+    <h3>Sort</h3>
+    <div class="filter-grid">
+      <label class="custom-checkbox">
+        <input type="radio" name="sort_by" value="title" checked>
+        <span class="checkmark"></span> Song Name
+      </label>
+      <label class="custom-checkbox">
+        <input type="radio" name="sort_by" value="artist">
+        <span class="checkmark"></span> Artist Name
+      </label>
+      <label class="custom-checkbox">
+        <input type="radio" name="sort_by" value="level">
+        <span class="checkmark"></span> Chart Level
+      </label>
+      <label class="custom-checkbox">
+        <input type="radio" name="sort_by" value="bpm">
+        <span class="checkmark"></span> Song BPM
+      </label>
+      <label class="custom-checkbox">
+        <input type="radio" name="sort_by" value="length">
+        <span class="checkmark"></span> Song Length
+      </label>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <h3>Sort Direction</h3>
+    <div class="filter-grid">
+      <label class="custom-checkbox">
+        <input type="radio" name="sort_dir" value="asc" checked>
+        <span class="checkmark"></span> Ascending
+      </label>
+      <label class="custom-checkbox">
+        <input type="radio" name="sort_dir" value="desc">
+        <span class="checkmark"></span> Descending
+      </label>
+    </div>
+  </div>
+</div>
   </body>
 </html>

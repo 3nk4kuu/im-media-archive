@@ -10,7 +10,15 @@ html, body {
   overflow: hidden;
 }
 
-/* TODO: increase top margin */
+h2, h3, h4 {
+  font-weight: 400;
+  margin: 0;
+}
+
+h2 { font-size: 36px; }
+h3 { font-size: 26px; }
+h4 { font-size: 24px; }
+
 /* header & search/filter */
 .main-header {
   display: flex;
@@ -34,13 +42,8 @@ html, body {
   border-radius: 0;
 }
 
-.main-header::before {
-  left: -14px; 
-}
-
-.main-header::after {
-  right: -14px;
-}
+.main-header::before { left: -14px; }
+.main-header::after { right: -14px; }
 
 .title {
   margin: 0;
@@ -96,22 +99,6 @@ html, body {
   overflow: hidden; 
   min-width: 0;
 }
-
-.details-panel {
-  flex: 4;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  justify-content: center; 
-  align-items: center; 
-  text-align: left;
-}
-
-.details-table, .diff-badges-container, .diff-section-title {
-  width: 100%;
-  max-width: 450px;
-}
-
 /* songs grid */
 .grid-container {
   display: grid;
@@ -147,7 +134,23 @@ html, body {
   outline-offset: 4px;
 }
 
+
 /* details */
+.details-panel {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  justify-content: center; 
+  align-items: center; 
+  text-align: left;
+}
+
+.details-table, .diff-badges-container, .diff-section-title {
+  width: 100%;
+  max-width: 450px;
+}
+
 .placeholder-text {
   font-size: 24px;
   color: rgba(255, 248, 211, 0.5);
@@ -183,17 +186,11 @@ html, body {
 }
 
 .details-title-box h2 {
-  margin: 0; 
-  font-size: 36px;
-  font-weight: 400;
   line-height: 1.1;
   margin-top: auto; 
 }
 
 .details-title-box h3 {
-  margin: 0;
-  font-size: 26px; 
-  font-weight: 400;
   line-height: 1; 
   color: rgba(255, 248, 211, 0.8);
 }
@@ -248,6 +245,12 @@ html, body {
   gap: 15px; 
 }
 
+.details-table .diff-badges-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .diff-badge {
   font-size: 24px;
   font-weight: 400;
@@ -256,32 +259,29 @@ html, body {
   border-radius: 4px;
 }
 
-/* cytus ii tags*/
+/* cytus ii tags */
 .diff-badge.CYTUS_II.easy { color: #1d77a2; background-color: #0a2e51; }
 .diff-badge.CYTUS_II.hard { color: #b31616; background-color: #4a0606; } 
 .diff-badge.CYTUS_II.chaos { color: #a40089; background-color: #3b0031; } 
 .diff-badge.CYTUS_II.glitch { color: #058053; background-color: #072c1f; }
 .diff-badge.CYTUS_II.crash { color: #ffc400; background-color: #5a4a17; }
+.diff-badge.CYTUS_II.dream { color: #dedede; background-color: #707070; }
+
 
 .diff-badge.NEKO { color: #F2295B; background-color: #4a0c1c; text-transform: none; }
 .diff-badge.PAFF { color: #CAE4DB; background-color: #2b4f45; text-transform: none; }
 .diff-badge.ROBO { color: #DCE9F0; background-color: #2d4554; text-transform: none; }
 .diff-badge.IVY { color: #ff4d4d; background-color: #4a0606; text-transform: none; }
 .diff-badge.GRAFF_J { color: #C9F143; background-color: #3f520a; text-transform: none; }
+.diff-badge.ALICE { color: #F0F8FF; background-color: #4f5f6d; text-transform: none; }
 
-.diff-badge.game-badge.CYTUS_II { 
-  color: #7A9D96; 
-  background-color: #294b46; 
-}
+.diff-badge.game-badge.CYTUS_II { color: #7A9D96; background-color: #294b46; }
 
 /* cytus i tags */
 .diff-badge.CYTUS.easy { color: #23d7b3; background-color: #004d3e; }
 .diff-badge.CYTUS.hard { color: #b31616; background-color: #4a0606; }
 
-.diff-badge.game-badge.CYTUS { 
-  color: #009b9b; 
-  background-color: #0e3636;
-}
+.diff-badge.game-badge.CYTUS { color: #009b9b; background-color: #0e3636; }
 
 .diff-badge[class*="CHAPTER_"] { 
   color: #fff8d3; 
@@ -295,8 +295,144 @@ html, body {
   text-transform: none;
 }
 
-.details-table .diff-badges-row {
+
+/* filter & sort side panel */
+.filter-panel {
+  position: fixed;
+  top: 0;  
+  right: -50vw;   
+  width: 40vw;   
+  min-width: 600px; 
+  gap: 30px;
+  height: 100vh;
+  background-color: rgba(13, 20, 20, 0.7); 
+  backdrop-filter: blur(3px); 
+  -webkit-backdrop-filter: blur(2px); 
+  z-index: 9999;
+  transition: right 0.3s ease-in-out;
+  padding: 40px 60px; 
+  padding: 0 4vw 40px 60px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.filter-panel-header h2 {
+  margin-right: auto; 
+}
+
+.filter-panel.open {
+  right: 0;
+}
+
+.filter-panel-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px; 
+  padding-top: 30px;
+  padding-bottom: 5px;
+  border-bottom: 4px solid rgba(255, 248, 211, 0.3); 
+  margin-bottom: 30px;
+}
+
+.filter-title-group {
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+}
+
+.close-filter-btn {
+  background: none;
+  border: none;
+  color: #fff8d3;
+  font-size: 44px; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 6px 0; 
+}
+
+.icon-btn {
+  background: transparent;
+  border: none; 
+  color: #fff8d3;
+  font-family: inherit; 
+  font-size: 24px; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
+  padding: 0; 
+  margin-right: 30px; 
+}
+
+.refresh-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.sort-header {
+  margin-top: 50px; 
+  border-bottom: 4px solid rgba(255, 248, 211, 0.3);
+  padding-bottom: 5px; 
+  margin-bottom: 30px; 
+}
+
+.filter-section {
+  margin-bottom: 30px; 
+}
+
+/* Uses Global h3 Size */
+.filter-section h3 {
+  margin-bottom: 20px; 
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 20px 15px; 
+}
+
+/* Checkboxes (Uses Global h4 24px equivalence) */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: 24px; 
+  user-select: none;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  height: 24px;
+  width: 24px;
+  background-color: transparent;
+  border: 2px solid #fff8d3;
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; 
+}
+
+.checkmark::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: #fff8d3;
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.custom-checkbox input:checked ~ .checkmark::after {
+  opacity: 1;
 }

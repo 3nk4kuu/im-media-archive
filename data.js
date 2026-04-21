@@ -21,6 +21,7 @@ const TAGS = {
   ROBO: { label: "ROBO_Head", type: "group" },
   IVY: { label: "Ivy", type: "group" },
   GRAFF_J: { label: "Graff.J", type: "group" },
+  ALICE: {label: "Alice", type: "group"},
 };
 
 const songs = [
@@ -212,7 +213,95 @@ const songs = [
           easy: { level: 4 },
           hard: { level: 9 },
           chaos: { level: 13 },
-          crash: { level: "α" },
+          crash: { level: "A" },
+        }
+      }
+    }
+  },
+  {
+    title: "ANiMA",
+    artist: "xi",
+    bpm: "183.5",
+    length: 119,
+    favorite: false,
+    versions: {
+      CYTUS_II: {
+        tags: ["ALICE"],
+        difficulties: {
+          easy: { level: 5 },
+          hard: { level: 10 },
+          chaos: { level: "15+" },
+          dream: { level: 15 },
+        }
+      }
+    }
+  },
+  {
+    title: "PrayStation (HiTECH NINJA Remix)",
+    artist: "HiTECH NINJA",
+    bpm: "153",
+    length: 130,
+    favorite: false,
+    versions: {
+      CYTUS_II: {
+        tags: ["NEKO"],
+        difficulties: {
+          easy: { level: 4 },
+          hard: { level: 8 },
+          chaos: { level: "13+" }
+        }
+      }
+    }
+  },
+  {
+    title: "B.B.K.K.B.K.K. (2023 Remake)",
+    artist: "nora2r",
+    bpm: "170",
+    length: 143,
+    favorite: false,
+    versions: {
+      CYTUS_II: {
+        tags: ["GRAFF_J"],
+        difficulties: {
+          easy: { level: 5 },
+          hard: { level: 8 },
+          chaos: { level: 13 },
+        }
+      }
+    }
+  },
+  {
+    title: "Keep it up",
+    artist: "uma",
+    bpm: "280",
+    length: 116,
+    favorite: false,
+    versions: {
+      CYTUS_II: {
+        tags: ["NEKO"],
+        difficulties: {
+          easy: { level: 5 },
+          hard: { level: 8 },
+          chaos: { level: 14 },
+          crash: { level: "Y" },
+        }
+      }
+    }
+  },
+  {
+    title: "Make Me Burn",
+    artist: "JAKAZiD",
+    bpm: "140",
+    length: 144,
+    favorite: false,
+    versions: {
+      CYTUS_II: {
+        tags: ["ROBO"],
+        difficulties: {
+          easy: { level: 3 },
+          hard: { level: 6 },
+          chaos: { level: 13 },
+          crash: { level: "B" },
         }
       }
     }
