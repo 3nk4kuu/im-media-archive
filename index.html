@@ -15,9 +15,12 @@
     <header class="main-header">
       <h1 class="title">iM Media Archive</h1>
       <div class="search-container">
-        <img src="assets/search.svg" class="search-icon" alt="Search" />
-        
-        <input type="text" id="search-bar" placeholder="Search" />
+    <img src="assets/search.svg" class="search-icon" alt="Search" />
+      <input type="text" id="search-bar" placeholder="Search" />
+  
+        <button id="random-btn" class="random-btn" data-tooltip="Get Random Song">
+          <img src="assets/shuffle.svg" class="shuffle-icon" alt="Shuffle" />
+        </button>
       </div>
       
       <img src="assets/filter.svg" class="filter-icon" alt="Filter" />
@@ -36,8 +39,7 @@
     <div id="filter-panel" class="filter-panel">
   <div class="filter-panel-header">
     <h2>Filter</h2>
-    <button id="reset-filter-btn" class="icon-btn" title="Clear All Filters">
-      Reset Filters
+    <button id="reset-filter-btn" class="icon-btn" data-tooltip="Reset All Filters"">
       <img src="assets/refresh.svg" class="refresh-icon" alt="Refresh" />
     </button>
     <button id="close-filter-btn" class="close-filter-btn">&times;</button>
