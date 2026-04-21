@@ -1,36 +1,26 @@
 const TAGS = {
-  // TODO: get rid of colors on data?
-  // TODO: add song covers/imgs
   // games
-  CYTUS: { label: "Cytus", color: "#008080", type: "game" },
-  CYTUS_II: { label: "Cytus II", color: "#7A9D96", type: "game" },
+  CYTUS: { label: "Cytus", type: "game" },
+  CYTUS_II: { label: "Cytus II", type: "game" },
 
   // cytus i groups
-  CHAPTER_1: { label: "Chapter 1", color: "#999", type: "group" },
-  CHAPTER_2: { label: "Chapter 2", color: "#999", type: "group" },
-  CHAPTER_3: { label: "Chapter 3", color: "#999", type: "group" },
-  CHAPTER_6: { label: "Chapter 6", color: "#999", type: "group" },
-  CHAPTER_8: { label: "Chapter 8", color: "#999", type: "group" },
-  CHAPTER_9: { label: "Chapter 9", color: "#999", type: "group" },
-  CHAPTER_10: { label: "Chapter 10", color: "#999", type: "group" },
-  CHAPTER_D: { label: "Chapter D", color: "#999", type: "group" },
-  CHAPTER_K: { label: "Chapter K", color: "#999", type: "group" },
-  CHAPTER_M: { label: "Chapter M", color: "#999", type: "group" },
+  CHAPTER_1: { label: "Chapter 1", type: "group" },
+  CHAPTER_2: { label: "Chapter 2", type: "group" },
+  CHAPTER_3: { label: "Chapter 3", type: "group" },
+  CHAPTER_6: { label: "Chapter 6", type: "group" },
+  CHAPTER_8: { label: "Chapter 8", type: "group" },
+  CHAPTER_9: { label: "Chapter 9", type: "group" },
+  CHAPTER_10: { label: "Chapter 10", type: "group" },
+  CHAPTER_D: { label: "Chapter D", type: "group" },
+  CHAPTER_K: { label: "Chapter K", type: "group" },
+  CHAPTER_M: { label: "Chapter M", type: "group" },
 
   // cytus ii groups
-  NEKO: { label: "NEKO#ΦωΦ", color: "#F2295B", type: "group" },
-  PAFF: { label: "PAFF", color: "#CAE4DB", type: "group" },
-  ROBO: { label: "ROBO_Head", color: "#DCE9F0", type: "group" },
-  IVY: { label: "Ivy", color: "#FF0000", type: "group" },
-  GRAFF_J: { label: "Graff.J", color: "#C9F143", type: "group" },
-
-  // status
-  NOT_CLEARED: { label: "Not Cleared", color: "#999", type: "status" },
-  RANK_C: { label: "Rank C", color: "#C0C0C0", type: "status" },
-  RANK_B: { label: "Rank B", color: "#00FFFF", type: "status" },
-  RANK_A: { label: "Rank A", color: "#B0FF00", type: "status" },
-  RANK_S: { label: "Rank S", color: "#ff5dec", type: "status" },
-  MM: { label: "Million Master", color: "#FFD700", type: "status" },
+  NEKO: { label: "NEKO#ΦωΦ", type: "group" },
+  PAFF: { label: "PAFF", type: "group" },
+  ROBO: { label: "ROBO_Head", type: "group" },
+  IVY: { label: "Ivy", type: "group" },
+  GRAFF_J: { label: "Graff.J", type: "group" },
 };
 
 const songs = [
@@ -45,9 +35,9 @@ const songs = [
       CYTUS_II: {
         tags: ["NEKO"],
         difficulties: {
-          easy: { level: 5, status: "NOT_CLEARED" },
-          hard: { level: 9, status: "NOT_CLEARED" },
-          chaos: { level: 15, status: "NOT_CLEARED" },
+          easy: { level: 5 },
+          hard: { level: 9 },
+          chaos: { level: 15 },
         }
       }
     }
@@ -62,9 +52,9 @@ const songs = [
       CYTUS_II: {
         tags: ["IVY"],
         difficulties: {
-          easy: { level: 4, status: "NOT_CLEARED" },
-          hard: { level: 8, status: "NOT_CLEARED" },
-          chaos: { level: 14, status: "NOT_CLEARED" },
+          easy: { level: 4 },
+          hard: { level: 8 },
+          chaos: { level: 14 },
         }
       }
     }
@@ -79,9 +69,9 @@ const songs = [
       CYTUS_II: {
         tags: ["NEKO"],
         difficulties: {
-          easy: { level: 6, status: "NOT_CLEARED" },
-          hard: { level: 10, status: "NOT_CLEARED" },
-          chaos: { level: "15+", status: "NOT_CLEARED" },
+          easy: { level: 6 },
+          hard: { level: 10 },
+          chaos: { level: "15+" },
         }
       }
     }
@@ -96,9 +86,9 @@ const songs = [
       CYTUS_II: {
         tags: ["GRAFF_J"],
         difficulties: {
-          easy: { level: 5, status: "NOT_CLEARED" },
-          hard: { level: 9, status: "NOT_CLEARED" },
-          chaos: { level: "14+", status: "NOT_CLEARED" },
+          easy: { level: 5 },
+          hard: { level: 9 },
+          chaos: { level: "14+" },
         }
       }
     }
@@ -113,10 +103,10 @@ const songs = [
       CYTUS_II: {
         tags: ["ROBO"],
         difficulties: {
-          easy: { level: 5, status: "NOT_CLEARED" },
-          hard: { level: 10, status: "NOT_CLEARED" },
-          chaos: { level: "14+", status: "NOT_CLEARED" },
-          glitch: { level: "15+", status: "NOT_CLEARED" },
+          easy: { level: 5 },
+          hard: { level: 10 },
+          chaos: { level: "14+" },
+          glitch: { level: "15+" },
         }
       }
     }
@@ -131,10 +121,10 @@ const songs = [
       CYTUS_II: {
         tags: ["ROBO"],
         difficulties: {
-          easy: { level: 4, status: "NOT_CLEARED" },
-          hard: { level: 8, status: "NOT_CLEARED" },
-          chaos: { level: 13, status: "NOT_CLEARED" },
-          glitch: { level: 14, status: "NOT_CLEARED" },
+          easy: { level: 4 },
+          hard: { level: 8 },
+          chaos: { level: 13 },
+          glitch: { level: 14 },
         }
       }
     }
@@ -149,10 +139,10 @@ const songs = [
       CYTUS_II: {
         tags: ["NEKO"],
         difficulties: {
-          easy: { level: 3, status: "NOT_CLEARED" },
-          hard: { level: 7, status: "NOT_CLEARED" },
-          chaos: { level: 12, status: "NOT_CLEARED" },
-          glitch: { level: "14+", status: "NOT_CLEARED" },
+          easy: { level: 3 },
+          hard: { level: 7 },
+          chaos: { level: 12 },
+          glitch: { level: "14+" },
         }
       }
     }
@@ -167,9 +157,9 @@ const songs = [
       CYTUS_II: {
         tags: ["NEKO"],
         difficulties: {
-          easy: { level: 3, status: "NOT_CLEARED" },
-          hard: { level: 8, status: "NOT_CLEARED" },
-          chaos: { level: 13, status: "NOT_CLEARED" },
+          easy: { level: 3 },
+          hard: { level: 8 },
+          chaos: { level: 13 },
         }
       }
     }
@@ -184,10 +174,10 @@ const songs = [
       CYTUS_II: {
         tags: ["PAFF"],
         difficulties: {
-          easy: { level: 3, status: "NOT_CLEARED" },
-          hard: { level: 7, status: "NOT_CLEARED" },
-          chaos: { level: "12+", status: "NOT_CLEARED" },
-          glitch: { level: "13+", status: "NOT_CLEARED" },
+          easy: { level: 3 },
+          hard: { level: 7 },
+          chaos: { level: "12+" },
+          glitch: { level: "13+" },
         }
       }
     }
@@ -202,9 +192,9 @@ const songs = [
       CYTUS_II: {
         tags: ["NEKO"],
         difficulties: {
-          easy: { level: 3, status: "NOT_CLEARED" },
-          hard: { level: 9, status: "NOT_CLEARED" },
-          chaos: { level: 14, status: "NOT_CLEARED" },
+          easy: { level: 3 },
+          hard: { level: 9 },
+          chaos: { level: 14 },
         }
       }
     }
@@ -219,10 +209,10 @@ const songs = [
       CYTUS_II: {
         tags: ["ROBO"],
         difficulties: {
-          easy: { level: 4, status: "NOT_CLEARED" },
-          hard: { level: 9, status: "NOT_CLEARED" },
-          chaos: { level: 13, status: "NOT_CLEARED" },
-          crash: { level: "α", status: "NOT_CLEARED" },
+          easy: { level: 4 },
+          hard: { level: 9 },
+          chaos: { level: 13 },
+          crash: { level: "α" },
         }
       }
     }
@@ -239,8 +229,8 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_K"],
         difficulties: {
-          easy: { level: 2, status: "NOT_CLEARED" },
-          hard: { level: 7, status: "NOT_CLEARED" },
+          easy: { level: 2 },
+          hard: { level: 7 },
         }
       }
     }
@@ -255,8 +245,8 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_9"],
         difficulties: {
-          easy: { level: 4, status: "NOT_CLEARED" },
-          hard: { level: 8, status: "NOT_CLEARED" },
+          easy: { level: 4 },
+          hard: { level: 8 },
         }
       }
     }
@@ -271,8 +261,8 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_D"],
         difficulties: {
-          easy: { level: 4, status: "NOT_CLEARED" },
-          hard: { level: 7, status: "NOT_CLEARED" },
+          easy: { level: 4 },
+          hard: { level: 7 },
         }
       }
     }
@@ -287,8 +277,8 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_6"],
         difficulties: {
-          easy: { level: 3, status: "NOT_CLEARED" },
-          hard: { level: 8, status: "NOT_CLEARED" },
+          easy: { level: 3 },
+          hard: { level: 8 },
         }
       }
     }
@@ -303,8 +293,8 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_K"],
         difficulties: {
-          easy: { level: 2, status: "NOT_CLEARED" },
-          hard: { level: 7, status: "NOT_CLEARED" },
+          easy: { level: 2 },
+          hard: { level: 7 },
         }
       }
     }
@@ -319,8 +309,8 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_M"],
         difficulties: {
-          easy: { level: 7, status: "NOT_CLEARED" },
-          hard: { level: 9, status: "NOT_CLEARED" },
+          easy: { level: 7 },
+          hard: { level: 9 },
         }
       }
     }
@@ -335,8 +325,8 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_2"],
         difficulties: {
-          easy: { level: 7, status: "NOT_CLEARED" },
-          hard: { level: 8, status: "NOT_CLEARED" },
+          easy: { level: 7 },
+          hard: { level: 8 },
         }
       }
     }
@@ -351,8 +341,8 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_3"],
         difficulties: {
-          easy: { level: 5, status: "NOT_CLEARED" },
-          hard: { level: 7, status: "NOT_CLEARED" },
+          easy: { level: 5 },
+          hard: { level: 7 },
         }
       }
     }
@@ -367,8 +357,8 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_8"],
         difficulties: {
-          easy: { level: 4, status: "NOT_CLEARED" },
-          hard: { level: 9, status: "NOT_CLEARED" },
+          easy: { level: 4 },
+          hard: { level: 9 },
         }
       }
     }
@@ -383,8 +373,8 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_8"],
         difficulties: {
-          easy: { level: 3, status: "NOT_CLEARED" },
-          hard: { level: 8, status: "NOT_CLEARED" },
+          easy: { level: 3 },
+          hard: { level: 8 },
         }
       }
     }
@@ -401,16 +391,16 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_3"],
         difficulties: {
-          easy: { level: 7, status: "NOT_CLEARED" },
-          hard: { level: 9, status: "NOT_CLEARED" },
+          easy: { level: 7 },
+          hard: { level: 9 },
         }
       },
       CYTUS_II: {
         tags: ["IVY"],
         difficulties: {
-          easy: { level: 4, status: "NOT_CLEARED" },
-          hard: { level: 9, status: "NOT_CLEARED" },
-          chaos: { level: 14, status: "NOT_CLEARED" },
+          easy: { level: 4 },
+          hard: { level: 9 },
+          chaos: { level: 14 },
         }
       }
     }
@@ -425,16 +415,16 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_10"],
         difficulties: {
-          easy: { level: 6, status: "NOT_CLEARED" },
-          hard: { level: 9, status: "NOT_CLEARED" },
+          easy: { level: 6 },
+          hard: { level: 9 },
         }
       },
       CYTUS_II: {
         tags: ["IVY"],
         difficulties: {
-          easy: { level: 6, status: "NOT_CLEARED" },
-          hard: { level: 10, status: "NOT_CLEARED" },
-          chaos: { level: "15+", status: "NOT_CLEARED" },
+          easy: { level: 6 },
+          hard: { level: 10 },
+          chaos: { level: "15+" },
         }
       }
     }
@@ -449,16 +439,16 @@ const songs = [
       CYTUS: {
         tags: ["CHAPTER_9"],
         difficulties: {
-          easy: { level: 6, status: "NOT_CLEARED" },
-          hard: { level: 9, status: "NOT_CLEARED" },
+          easy: { level: 6 },
+          hard: { level: 9 },
         }
       },
       CYTUS_II: {
         tags: ["IVY"],
         difficulties: {
-          easy: { level: 4, status: "NOT_CLEARED" },
-          hard: { level: 8, status: "NOT_CLEARED" },
-          chaos: { level: 13, status: "NOT_CLEARED" },
+          easy: { level: 4 },
+          hard: { level: 8 },
+          chaos: { level: 13 },
         }
       }
     }

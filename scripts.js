@@ -23,28 +23,35 @@
  *
  */
 
-
-let currentData = []; 
-let selectedItem = null; 
+let currentData = [];
+let selectedItem = null;
 
 // convert seconds to minutes:seconds
 function formatTime(totalSeconds) {
   if (!totalSeconds) return "---";
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
+
+// placeholder for details
+  function resetDetailsPanel() {
+    const panel = document.getElementById("details-panel");
+    if (panel) {
+      panel.innerHTML = `<div class="placeholder-text">Select a song to view details.</div>`;
+    }
+  }
 
 // get song details & display them in the side panel
 function songDetails(song) {
   const panel = document.getElementById("details-panel");
   const gameKeys = Object.keys(song.versions);
-  
+
   // game badges
   const gameBadges = gameKeys.map(k => {
-    const label = TAGS[k]?.label || k;
-    return `<span class="diff-badge game-badge ${k}">${label}</span>`;
-  }).join("");
+      const label = TAGS[k]?.label || k;
+      return `<span class="diff-badge game-badge ${k}">${label}</span>`;
+    }).join("");
   const gameNames = `<div class="diff-badges-row">${gameBadges}</div>`;
 
   // category badges
@@ -52,23 +59,25 @@ function songDetails(song) {
   gameKeys.forEach(k => {
     const v = song.versions[k];
     const groups = v.tags.filter(t => TAGS[t] && TAGS[t].type === "group").map(t => {
-      return `<span class="diff-badge ${t}">${TAGS[t].label}</span>`;
-    });
+        return `<span class="diff-badge ${t}">${TAGS[t].label}</span>`;
+      });
     allCategories.push(...groups);
   });
-  
+
   const uniqueGroups = [...new Set(allCategories)];
   const groupText = uniqueGroups.length > 0 ? `<div class="diff-badges-row">${uniqueGroups.join("")}</div>` : "---";
 
   // difficulty badges
   const diffBadges = gameKeys.map(k => {
-    const v = song.versions[k];
-    const badges = Object.keys(v.difficulties).map(diff => {
-      const level = v.difficulties[diff].level;
-      return `<span class="diff-badge ${k} ${diff}">${diff.toUpperCase()} ${level}</span>`;
+      const v = song.versions[k];
+      const badges = Object.keys(v.difficulties).map(diff => {
+          const level = v.difficulties[diff].level;
+          return `<span class="diff-badge ${k} ${diff}">${diff.toUpperCase()} ${level}</span>`;
+        }).join("");
+      return `<div class="diff-badges-row">${badges}</div>`;
     }).join("");
-    return `<div class="diff-badges-row">${badges}</div>`;
-  }).join("");
+
+
 
   // song details & image
   const lengthStr = formatTime(song.length);
@@ -103,12 +112,12 @@ function songDetails(song) {
 // songs grid
 function songsGrid(items) {
   const container = document.getElementById("grid-container");
-  container.innerHTML = ""; 
+  container.innerHTML = "";
 
   items.forEach((song) => {
     const square = document.createElement("div");
     square.className = "cover-square";
-    
+
     // song selected
     if (selectedItem && selectedItem.title === song.title) {
       square.classList.add("active");
@@ -118,7 +127,7 @@ function songsGrid(items) {
     }
     square.onclick = () => {
       selectedItem = song;
-      songDetails(song);     
+      songDetails(song);
       document.querySelectorAll('.cover-square').forEach(el => el.classList.remove('active'));
       square.classList.add("active");
     };
@@ -146,10 +155,7 @@ function handleSearch() {
   if (!searchTerm) {
     currentData = songs;
     selectedItem = null;
-
-    document.getElementById("details-panel").innerHTML =
-      `<div class="placeholder-text">Select a file to view details.</div>`;
-
+    resetDetailsPanel();
     songsGrid(currentData);
     return;
   }
@@ -162,10 +168,10 @@ function handleSearch() {
       const gameNameMatch = TAGS[gameKey]?.label?.toLowerCase().includes(searchTerm);
 
       const specificTagsMatch = (song.versions[gameKey].tags || []).some(tag => {
-        let tagLabel = TAGS[tag]?.label?.toLowerCase() || "";
-        tagLabel = tagLabel.replace("chapter", "").trim();
-        if (!tagLabel) return false;
-        return tagLabel.includes(searchTerm);
+          let tagLabel = TAGS[tag]?.label?.toLowerCase() || "";
+          tagLabel = tagLabel.replace("chapter", "").trim();
+          if (!tagLabel) return false;
+          return tagLabel.includes(searchTerm);
       });
 
       return gameNameMatch || specificTagsMatch;
@@ -175,16 +181,15 @@ function handleSearch() {
   });
 
   selectedItem = null;
-  document.getElementById("details-panel").innerHTML =
-    `<div class="placeholder-text">Select a song to view details.</div>`;
+  resetDetailsPanel();
 
   // for no result
   const container = document.getElementById("grid-container");
   if (currentData.length === 0) {
     container.style.display = "flex";
     container.style.justifyContent = "center";
-    container.style.alignItems = "center";    
-    container.style.height = "100%"; 
+    container.style.alignItems = "center";
+    container.style.height = "100%";
     container.innerHTML = `
       <div class="placeholder-text">
         No results found for "${searchTerm}"
@@ -194,8 +199,8 @@ function handleSearch() {
     // populate grid and/or search has result
     container.style.display = "";
     container.style.justifyContent = "";
-    container.style.alignItems = "";    
-    container.style.height = "";     
+    container.style.alignItems = "";
+    container.style.height = "";
     songsGrid(currentData);
   }
 }
