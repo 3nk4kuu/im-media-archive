@@ -23,75 +23,173 @@
  *
  */
 
-const FRESH_PRINCE_URL =
-  "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
-const CURB_POSTER_URL =
-  "https://m.media-amazon.com/images/M/MV5BZDY1ZGM4OGItMWMyNS00MDAyLWE2Y2MtZTFhMTU0MGI5ZDFlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_FMjpg_UX1000_.jpg";
-const EAST_LOS_HIGH_POSTER_URL =
-  "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
 
-// This is an array of strings (TV show titles)
-let titles = [
-  "Fresh Prince of Bel Air",
-  "Curb Your Enthusiasm",
-  "East Los High",
-];
-// Your final submission should have much more data than this, and
-// you should use more than just an array of strings to store it all.
+let currentData = []; 
+let selectedItem = null; 
 
-// This function adds cards the page to display the data in the array
-function showCards() {
-  const cardContainer = document.getElementById("card-container");
-  cardContainer.innerHTML = "";
-  const templateCard = document.querySelector(".card");
+// convert seconds to minutes:seconds
+function formatTime(totalSeconds) {
+  if (!totalSeconds) return "---";
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
 
-  for (let i = 0; i < titles.length; i++) {
-    let title = titles[i];
+// get songs grid
+function songsGrid(items) {
+  const container = document.getElementById("grid-container");
+  container.innerHTML = ""; 
 
-    // This part of the code doesn't scale very well! After you add your
-    // own data, you'll need to do something totally different here.
-    let imageURL = "";
-    if (i == 0) {
-      imageURL = FRESH_PRINCE_URL;
-    } else if (i == 1) {
-      imageURL = CURB_POSTER_URL;
-    } else if (i == 2) {
-      imageURL = EAST_LOS_HIGH_POSTER_URL;
+  items.forEach((song) => {
+    const square = document.createElement("div");
+    square.className = "cover-square";
+    
+    if (selectedItem && selectedItem.title === song.title) {
+      square.classList.add("active");
     }
 
-    const nextCard = templateCard.cloneNode(true); // Copy the template card
-    editCardContent(nextCard, title, imageURL); // Edit title and image
-    cardContainer.appendChild(nextCard); // Add new card to the container
+    if (song.cover) {
+      square.style.backgroundImage = `url('${song.cover}')`;
+    }
+
+    square.onclick = () => {
+      selectedItem = song;
+      songDetails(song);
+      
+      document.querySelectorAll('.cover-square').forEach(el => el.classList.remove('active'));
+      square.classList.add("active");
+    };
+
+    container.appendChild(square);
+  });
+}
+
+// get song details & display them
+function songDetails(song) {
+  const panel = document.getElementById("details-panel");
+  
+  const gameKeys = Object.keys(song.versions);
+  
+  const gameBadges = gameKeys.map(k => {
+    const label = TAGS[k]?.label || k;
+    return `<span class="diff-badge game-badge ${k}">${label}</span>`;
+  }).join("");
+
+  const gameNames = `<div class="diff-badges-row">${gameBadges}</div>`;
+
+  // make all categories badges
+  const allCategories = [];
+  gameKeys.forEach(k => {
+    const v = song.versions[k];
+    const groups = v.tags.filter(t => TAGS[t] && TAGS[t].type === "group").map(t => {
+      return `<span class="diff-badge ${t}">${TAGS[t].label}</span>`;
+    });
+    allCategories.push(...groups);
+  });
+  
+  const uniqueGroups = [...new Set(allCategories)];
+  const groupText = uniqueGroups.length > 0 ? `<div class="diff-badges-row">${uniqueGroups.join("")}</div>` : "---";
+
+  const lengthStr = formatTime(song.length);
+  const favIcon = song.favorite ? "♥" : "♡";
+  const favClass = song.favorite ? "fav-btn active" : "fav-btn";
+
+  const coverHTML = song.cover ? `<img src="${song.cover}" class="details-cover" alt="Cover" />` : `<div class="details-cover"></div>`;
+
+  // badges - different row for each game version
+  const diffBadges = gameKeys.map(k => {
+    const v = song.versions[k];
+    const badges = Object.keys(v.difficulties).map(diff => {
+      const level = v.difficulties[diff].level;
+      return `<span class="diff-badge ${k} ${diff}">${diff.toUpperCase()} ${level}</span>`;
+    }).join("");
+    
+    return `<div class="diff-badges-row">${badges}</div>`;
+  }).join("");
+
+  const safeTitle = song.title.replace(/'/g, "\\'");
+
+  panel.innerHTML = `
+    <div class="details-header">
+      ${coverHTML}
+      <div class="details-title-box">
+        <button class="${favClass}" onclick="toggleFavorite('${safeTitle}')">${favIcon}</button>
+        <h2>${song.title}</h2>
+        <h3>${song.artist}</h3>
+      </div>
+    </div>
+
+    <table class="details-table">
+      <tr>
+        <td>BPM</td>
+        <td>${song.bpm || '---'}</td>
+      </tr>
+      <tr>
+        <td>Length</td>
+        <td>${lengthStr}</td>
+      </tr>
+      <tr>
+        <td>Game</td>
+        <td>${gameNames}</td>
+      </tr>
+      <tr>
+        <td>Category</td>
+        <td>${groupText}</td>
+      </tr>
+    </table>
+
+    <div class="diff-section-title">Difficulties</div>
+    <div class="diff-badges-container">
+      ${diffBadges}
+    </div>
+  `;
+}
+
+// toggle to 'favorite' song
+function toggleFavorite(songTitle) {
+  const song = songs.find(s => s.title === songTitle);
+  if (song) {
+    song.favorite = !song.favorite;
+    if (selectedItem && selectedItem.title === songTitle) {
+      songDetails(selectedItem);
+    }
   }
 }
 
-function editCardContent(card, newTitle, newImageURL) {
-  card.style.display = "block";
+// search
+// FIXME: search is returning false postives
+// searching 'hap' is giving songs that don't even have hap in their title, tags, categories, etc.
+// only happiness breeze should show up at that point, but i'm getting different results
+function handleSearch() {
+  const searchInput = document.getElementById("search-bar");
+  const searchTerm = searchInput.value.toLowerCase();
 
-  const cardHeader = card.querySelector("h2");
-  cardHeader.textContent = newTitle;
+  currentData = songs.filter(song => {
+    const matchesTitle = song.title.toLowerCase().includes(searchTerm);
+    const matchesArtist = song.artist.toLowerCase().includes(searchTerm);
+    const matchesTags = Object.keys(song.versions).some(gameKey => {
+      const gameNameMatch = TAGS[gameKey].label.toLowerCase().includes(searchTerm);
+      const specificTagsMatch = song.versions[gameKey].tags.some(tag => 
+          TAGS[tag] && TAGS[tag].label.toLowerCase().includes(searchTerm)
+      );
+      return gameNameMatch || specificTagsMatch;
+    });
 
-  const cardImage = card.querySelector("img");
-  cardImage.src = newImageURL;
-  cardImage.alt = newTitle + " Poster";
+    return matchesTitle || matchesArtist || matchesTags;
+  });
 
-  // You can use console.log to help you debug!
-  // View the output by right clicking on your website,
-  // select "Inspect", then click on the "Console" tab
-  console.log("new card:", newTitle, "- html: ", card);
+  selectedItem = null; 
+  document.getElementById("details-panel").innerHTML = `<div class="placeholder-text">Select a file to view details.</div>`;
+  songsGrid(currentData);
 }
+document.addEventListener("DOMContentLoaded", () => {
+  currentData = songs;
+  songsGrid(currentData); 
 
-// This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards);
+  const searchInput = document.getElementById("search-bar");
+  if (searchInput) {
+    searchInput.addEventListener("input", handleSearch);
+  }
+});
 
-function quoteAlert() {
-  console.log("Button Clicked!");
-  alert(
-    "I guess I can kiss heaven goodbye, because it got to be a sin to look this good!",
-  );
-}
-
-function removeLastCard() {
-  titles.pop(); // Remove last item in titles array
-  showCards(); // Call showCards again to refresh
-}
+// TODO: make filtering popup/tab & functions
