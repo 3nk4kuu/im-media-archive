@@ -31,6 +31,7 @@ const songs = [
     artist: "TANO*C Sound Team",
     bpm: "200",
     length: 132,
+    cover: "https://static.wikia.nocookie.net/cytus/images/5/5b/BATTLENO1.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -48,6 +49,7 @@ const songs = [
     artist: "LureRabbit",
     bpm: "160-220",
     length: 148,
+    cover: "https://static.wikia.nocookie.net/cytus/images/a/ae/Sovereign.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -65,6 +67,7 @@ const songs = [
     artist: "DJ Myosuke & Gram & t+pazolite",
     bpm: "222",
     length: 153,
+    cover: "https://static.wikia.nocookie.net/cytus/images/c/ce/SigmaORG.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -82,6 +85,7 @@ const songs = [
     artist: "COSIO(ZUNTATA) from GROOVE COASTER",
     bpm: "192",
     length: 123,
+    cover: "https://static.wikia.nocookie.net/cytus/images/a/a3/FUJIN_Rumble.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -99,6 +103,7 @@ const songs = [
     artist: "Æsir",
     bpm: "80-150",
     length: 223,
+    cover: "https://static.wikia.nocookie.net/cytus/images/f/f0/CHAOS.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -117,6 +122,7 @@ const songs = [
     artist: "M-Project feat. Jonjo",
     bpm: "125-177",
     length: 140,
+    cover: "https://static.wikia.nocookie.net/cytus/images/6/60/Pure_Powerstomper.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -135,6 +141,7 @@ const songs = [
     artist: "3R2 as DJ Mashiro",
     bpm: "185",
     length: 144,
+    cover: "https://static.wikia.nocookie.net/cytus/images/8/8b/Happiness_Breeze.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -153,6 +160,7 @@ const songs = [
     artist: "NOMA",
     bpm: "170-173",
     length: 150,
+    cover: "https://static.wikia.nocookie.net/cytus/images/e/e7/Brain_Power.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -170,6 +178,7 @@ const songs = [
     artist: "M2U",
     bpm: "128",
     length: 161,
+    cover: "https://static.wikia.nocookie.net/cytus/images/1/1a/Gravity.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -188,6 +197,7 @@ const songs = [
     artist: "3R2",
     bpm: "175",
     length: 139,
+    cover: "https://static.wikia.nocookie.net/cytus/images/3/31/Blow_My_Mind_%28Full_Image%29.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -205,6 +215,7 @@ const songs = [
     artist: "3R2",
     bpm: "160",
     length: 130,
+    cover: "https://static.wikia.nocookie.net/cytus/images/a/a8/Devillic_Sphere.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -218,11 +229,13 @@ const songs = [
       }
     }
   },
+  // extra difficulties testing
   {
     title: "ANiMA",
     artist: "xi",
     bpm: "183.5",
     length: 119,
+    cover: "https://static.wikia.nocookie.net/cytus/images/d/d6/ANiMA.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -241,6 +254,7 @@ const songs = [
     artist: "HiTECH NINJA",
     bpm: "153",
     length: 130,
+    cover: "https://static.wikia.nocookie.net/cytus/images/0/02/Praystation_%28HiTECH_NINJA_Remix%29.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -258,6 +272,7 @@ const songs = [
     artist: "nora2r",
     bpm: "170",
     length: 143,
+    cover: "https://static.wikia.nocookie.net/cytus/images/d/d7/BBKKBKK.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -275,6 +290,7 @@ const songs = [
     artist: "uma",
     bpm: "280",
     length: 116,
+    cover: "https://static.wikia.nocookie.net/cytus/images/a/a5/Keep_it_up.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -293,6 +309,7 @@ const songs = [
     artist: "JAKAZiD",
     bpm: "140",
     length: 144,
+    cover: "https://static.wikia.nocookie.net/cytus/images/8/8d/Make_Me_Burn.png",
     favorite: false,
     versions: {
       CYTUS_II: {
@@ -313,6 +330,7 @@ const songs = [
     artist: "Mai Aoyagi",
     bpm: "105.2",
     length: 181,
+    cover: "https://static.wikia.nocookie.net/cytus/images/5/54/K-10.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -329,6 +347,7 @@ const songs = [
     artist: "ensou",
     bpm: "180",
     length: 118,
+    cover: "https://static.wikia.nocookie.net/cytus/images/2/26/9-9.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -345,6 +364,7 @@ const songs = [
     artist: "3R2",
     bpm: "143",
     length: 146,
+    cover: "https://static.wikia.nocookie.net/cytus/images/d/df/D-8.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -361,6 +381,7 @@ const songs = [
     artist: "xi",
     bpm: "180",
     length: 148,
+    cover: "https://static.wikia.nocookie.net/cytus/images/1/1b/6-8.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -377,6 +398,7 @@ const songs = [
     artist: "Eye XY",
     bpm: "120-220 (Main: 155)",
     length: 137,
+    cover: "https://static.wikia.nocookie.net/cytus/images/c/c5/K-5.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -393,6 +415,7 @@ const songs = [
     artist: "xi vs sakuzyo",
     bpm: "180",
     length: 252,
+    cover: "https://static.wikia.nocookie.net/cytus/images/1/13/M-10.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -409,6 +432,7 @@ const songs = [
     artist: "ICE",
     bpm: "167",
     length: 120,
+    cover: "https://static.wikia.nocookie.net/cytus/images/3/3e/2-6.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -425,6 +449,7 @@ const songs = [
     artist: "SUZUMETUNE",
     bpm: "147",
     length: 132,
+    cover: "https://static.wikia.nocookie.net/cytus/images/2/25/3-5.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -441,6 +466,7 @@ const songs = [
     artist: "sakuzyo",
     bpm: "155",
     length: 105,
+    cover: "https://static.wikia.nocookie.net/cytus/images/9/97/8-5.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -457,6 +483,7 @@ const songs = [
     artist: "Vospi",
     bpm: "172",
     length: 134,
+    cover: "https://static.wikia.nocookie.net/cytus/images/f/f6/8-10.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -475,6 +502,7 @@ const songs = [
     artist: "xi",
     bpm: "191",
     length: 157,
+    cover: "https://static.wikia.nocookie.net/cytus/images/b/ba/3-7.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -499,6 +527,7 @@ const songs = [
     artist: "xi",
     bpm: "222.22",
     length: 146,
+    cover: "https://static.wikia.nocookie.net/cytus/images/f/f1/10-1.png",
     favorite: false,
     versions: {
       CYTUS: {
@@ -523,6 +552,7 @@ const songs = [
     artist: "ginkiha",
     bpm: "140-185",
     length: 122,
+    cover: "https://static.wikia.nocookie.net/cytus/images/1/11/9-1.png",
     favorite: false,
     versions: {
       CYTUS: {
