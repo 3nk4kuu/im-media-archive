@@ -27,6 +27,7 @@ const TAGS = {
 const songs = [
   // cytus ii songs
   {
+    id: 1,
     title: "BATTLE NO.1",
     artist: "TANO*C Sound Team",
     bpm: "200",
@@ -45,6 +46,7 @@ const songs = [
     }
   },
   {
+    id: 2,
     title: "Sovereign",
     artist: "LureRabbit",
     bpm: "160-220",
@@ -63,6 +65,7 @@ const songs = [
     }
   },
   {
+    id: 3,
     title: "Σ",
     artist: "DJ Myosuke & Gram & t+pazolite",
     bpm: "222",
@@ -81,6 +84,7 @@ const songs = [
     }
   },
   {
+    id: 4,
     title: "FUJIN Rumble",
     artist: "COSIO(ZUNTATA) from GROOVE COASTER",
     bpm: "192",
@@ -99,6 +103,7 @@ const songs = [
     }
   },
   {
+    id: 5,
     title: "CHAOS",
     artist: "Æsir",
     bpm: "80-150",
@@ -118,6 +123,7 @@ const songs = [
     }
   },
   {
+    id: 6,
     title: "Pure Powerstomper",
     artist: "M-Project feat. Jonjo",
     bpm: "125-177",
@@ -137,6 +143,7 @@ const songs = [
     }
   },
   {
+    id: 7,
     title: "Happiness Breeze",
     artist: "3R2 as DJ Mashiro",
     bpm: "185",
@@ -156,6 +163,7 @@ const songs = [
     }
   },
   {
+    id: 8,
     title: "Brain Power",
     artist: "NOMA",
     bpm: "170-173",
@@ -174,6 +182,7 @@ const songs = [
     }
   },
   {
+    id: 9,
     title: "Gravity",
     artist: "M2U",
     bpm: "128",
@@ -193,6 +202,7 @@ const songs = [
     }
   },
   {
+    id: 10,
     title: "Blow My Mind",
     artist: "3R2",
     bpm: "175",
@@ -211,6 +221,7 @@ const songs = [
     }
   },
   {
+    id: 11,
     title: "Devillic Sphere",
     artist: "3R2",
     bpm: "160",
@@ -224,13 +235,14 @@ const songs = [
           easy: { level: 4 },
           hard: { level: 9 },
           chaos: { level: 13 },
-          crash: { level: "A" },
+          crash: { level: "α" },
         }
       }
     }
   },
   // extra difficulties testing
   {
+    id: 12,
     title: "ANiMA",
     artist: "xi",
     bpm: "183.5",
@@ -250,6 +262,7 @@ const songs = [
     }
   },
   {
+    id: 13,
     title: "PrayStation (HiTECH NINJA Remix)",
     artist: "HiTECH NINJA",
     bpm: "153",
@@ -268,6 +281,7 @@ const songs = [
     }
   },
   {
+    id: 14,
     title: "B.B.K.K.B.K.K. (2023 Remake)",
     artist: "nora2r",
     bpm: "170",
@@ -286,6 +300,7 @@ const songs = [
     }
   },
   {
+    id: 15,
     title: "Keep it up",
     artist: "uma",
     bpm: "280",
@@ -299,12 +314,13 @@ const songs = [
           easy: { level: 5 },
           hard: { level: 8 },
           chaos: { level: 14 },
-          crash: { level: "Y" },
+          crash: { level: "γ" },
         }
       }
     }
   },
   {
+    id: 16,
     title: "Make Me Burn",
     artist: "JAKAZiD",
     bpm: "140",
@@ -318,7 +334,7 @@ const songs = [
           easy: { level: 3 },
           hard: { level: 6 },
           chaos: { level: 13 },
-          crash: { level: "B" },
+          crash: { level: "β" },
         }
       }
     }
@@ -326,6 +342,7 @@ const songs = [
 
   // cytus
   {
+    id: 17,
     title: "Music. The Eternity of Us",
     artist: "Mai Aoyagi",
     bpm: "105.2",
@@ -343,6 +360,7 @@ const songs = [
     }
   },
   {
+    id: 18,
     title: "COMA",
     artist: "ensou",
     bpm: "180",
@@ -360,6 +378,7 @@ const songs = [
     }
   },
   {
+    id: 19,
     title: "Angelic Sphere",
     artist: "3R2",
     bpm: "143",
@@ -377,6 +396,7 @@ const songs = [
     }
   },
   {
+    id: 20,
     title: "Niflheimr",
     artist: "xi",
     bpm: "180",
@@ -394,6 +414,7 @@ const songs = [
     }
   },
   {
+    id: 21,
     title: "Knight of Firmament",
     artist: "Eye XY",
     bpm: "120-220 (Main: 155)",
@@ -411,6 +432,7 @@ const songs = [
     }
   },
   {
+    id: 22,
     title: "Storia",
     artist: "xi vs sakuzyo",
     bpm: "180",
@@ -428,6 +450,7 @@ const songs = [
     }
   },
   {
+    id: 23,
     title: "Precipitation",
     artist: "ICE",
     bpm: "167",
@@ -445,6 +468,7 @@ const songs = [
     }
   },
   {
+    id: 24,
     title: "Otome",
     artist: "SUZUMETUNE",
     bpm: "147",
@@ -462,6 +486,7 @@ const songs = [
     }
   },
   {
+    id: 25,
     title: "Laplace",
     artist: "sakuzyo",
     bpm: "155",
@@ -479,6 +504,7 @@ const songs = [
     }
   },
   {
+    id: 26,
     title: "Reverence",
     artist: "Vospi",
     bpm: "172",
@@ -498,6 +524,7 @@ const songs = [
 
   // cytus & cytus ii
   {
+    id: 27,
     title: "Halcyon",
     artist: "xi",
     bpm: "191",
@@ -523,6 +550,7 @@ const songs = [
     }
   },
   {
+    id: 28,
     title: "Freedom Dive",
     artist: "xi",
     bpm: "222.22",
@@ -548,6 +576,7 @@ const songs = [
     }
   },
   {
+    id: 29,
     title: "Oriens",
     artist: "ginkiha",
     bpm: "140-185",
