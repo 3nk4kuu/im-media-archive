@@ -35,49 +35,19 @@ function formatTime(totalSeconds) {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
-// get songs grid
-function songsGrid(items) {
-  const container = document.getElementById("grid-container");
-  container.innerHTML = ""; 
-
-  items.forEach((song) => {
-    const square = document.createElement("div");
-    square.className = "cover-square";
-    
-    if (selectedItem && selectedItem.title === song.title) {
-      square.classList.add("active");
-    }
-
-    if (song.cover) {
-      square.style.backgroundImage = `url('${song.cover}')`;
-    }
-
-    square.onclick = () => {
-      selectedItem = song;
-      songDetails(song);
-      
-      document.querySelectorAll('.cover-square').forEach(el => el.classList.remove('active'));
-      square.classList.add("active");
-    };
-
-    container.appendChild(square);
-  });
-}
-
-// get song details & display them
+// get song details & display them in the side panel
 function songDetails(song) {
   const panel = document.getElementById("details-panel");
-  
   const gameKeys = Object.keys(song.versions);
   
+  // game badges
   const gameBadges = gameKeys.map(k => {
     const label = TAGS[k]?.label || k;
     return `<span class="diff-badge game-badge ${k}">${label}</span>`;
   }).join("");
-
   const gameNames = `<div class="diff-badges-row">${gameBadges}</div>`;
 
-  // make all categories badges
+  // category badges
   const allCategories = [];
   gameKeys.forEach(k => {
     const v = song.versions[k];
@@ -90,25 +60,22 @@ function songDetails(song) {
   const uniqueGroups = [...new Set(allCategories)];
   const groupText = uniqueGroups.length > 0 ? `<div class="diff-badges-row">${uniqueGroups.join("")}</div>` : "---";
 
-  const lengthStr = formatTime(song.length);
-  const favIcon = song.favorite ? "♥" : "♡";
-  const favClass = song.favorite ? "fav-btn active" : "fav-btn";
-
-  const coverHTML = song.cover ? `<img src="${song.cover}" class="details-cover" alt="Cover" />` : `<div class="details-cover"></div>`;
-
-  // badges - different row for each game version
+  // difficulty badges
   const diffBadges = gameKeys.map(k => {
     const v = song.versions[k];
     const badges = Object.keys(v.difficulties).map(diff => {
       const level = v.difficulties[diff].level;
       return `<span class="diff-badge ${k} ${diff}">${diff.toUpperCase()} ${level}</span>`;
     }).join("");
-    
     return `<div class="diff-badges-row">${badges}</div>`;
   }).join("");
 
+  // song details & image
+  const lengthStr = formatTime(song.length);
+  const favIcon = song.favorite ? "♥" : "♡";
+  const favClass = song.favorite ? "fav-btn active" : "fav-btn";
+  const coverHTML = song.cover ? `<img src="${song.cover}" class="details-cover" alt="Cover" />` : `<div class="details-cover"></div>`;
   const safeTitle = song.title.replace(/'/g, "\\'");
-
   panel.innerHTML = `
     <div class="details-header">
       ${coverHTML}
@@ -120,22 +87,10 @@ function songDetails(song) {
     </div>
 
     <table class="details-table">
-      <tr>
-        <td>BPM</td>
-        <td>${song.bpm || '---'}</td>
-      </tr>
-      <tr>
-        <td>Length</td>
-        <td>${lengthStr}</td>
-      </tr>
-      <tr>
-        <td>Game</td>
-        <td>${gameNames}</td>
-      </tr>
-      <tr>
-        <td>Category</td>
-        <td>${groupText}</td>
-      </tr>
+      <tr><td>BPM</td><td>${song.bpm || '---'}</td></tr>
+      <tr><td>Length</td><td>${lengthStr}</td></tr>
+      <tr><td>Game</td><td>${gameNames}</td></tr>
+      <tr><td>Category</td><td>${groupText}</td></tr>
     </table>
 
     <div class="diff-section-title">Difficulties</div>
@@ -145,7 +100,34 @@ function songDetails(song) {
   `;
 }
 
-// toggle to 'favorite' song
+// songs grid
+function songsGrid(items) {
+  const container = document.getElementById("grid-container");
+  container.innerHTML = ""; 
+
+  items.forEach((song) => {
+    const square = document.createElement("div");
+    square.className = "cover-square";
+    
+    // song selected
+    if (selectedItem && selectedItem.title === song.title) {
+      square.classList.add("active");
+    }
+    if (song.cover) {
+      square.style.backgroundImage = `url('${song.cover}')`;
+    }
+    square.onclick = () => {
+      selectedItem = song;
+      songDetails(song);     
+      document.querySelectorAll('.cover-square').forEach(el => el.classList.remove('active'));
+      square.classList.add("active");
+    };
+
+    container.appendChild(square);
+  });
+}
+
+// toggle 'favorite' song
 function toggleFavorite(songTitle) {
   const song = songs.find(s => s.title === songTitle);
   if (song) {
@@ -157,35 +139,75 @@ function toggleFavorite(songTitle) {
 }
 
 // search
-// FIXME: search is returning false postives
-// searching 'hap' is giving songs that don't even have hap in their title, tags, categories, etc.
-// only happiness breeze should show up at that point, but i'm getting different results
 function handleSearch() {
   const searchInput = document.getElementById("search-bar");
-  const searchTerm = searchInput.value.toLowerCase();
+  const searchTerm = searchInput.value.toLowerCase().trim();
+
+  if (!searchTerm) {
+    currentData = songs;
+    selectedItem = null;
+
+    document.getElementById("details-panel").innerHTML =
+      `<div class="placeholder-text">Select a file to view details.</div>`;
+
+    songsGrid(currentData);
+    return;
+  }
 
   currentData = songs.filter(song => {
     const matchesTitle = song.title.toLowerCase().includes(searchTerm);
     const matchesArtist = song.artist.toLowerCase().includes(searchTerm);
-    const matchesTags = Object.keys(song.versions).some(gameKey => {
-      const gameNameMatch = TAGS[gameKey].label.toLowerCase().includes(searchTerm);
-      const specificTagsMatch = song.versions[gameKey].tags.some(tag => 
-          TAGS[tag] && TAGS[tag].label.toLowerCase().includes(searchTerm)
-      );
+
+    const matchesTags = Object.keys(song.versions || {}).some(gameKey => {
+      const gameNameMatch = TAGS[gameKey]?.label?.toLowerCase().includes(searchTerm);
+
+      const specificTagsMatch = (song.versions[gameKey].tags || []).some(tag => {
+        let tagLabel = TAGS[tag]?.label?.toLowerCase() || "";
+        tagLabel = tagLabel.replace("chapter", "").trim();
+        if (!tagLabel) return false;
+        return tagLabel.includes(searchTerm);
+      });
+
       return gameNameMatch || specificTagsMatch;
     });
 
     return matchesTitle || matchesArtist || matchesTags;
   });
 
-  selectedItem = null; 
-  document.getElementById("details-panel").innerHTML = `<div class="placeholder-text">Select a file to view details.</div>`;
-  songsGrid(currentData);
-}
-document.addEventListener("DOMContentLoaded", () => {
-  currentData = songs;
-  songsGrid(currentData); 
+  selectedItem = null;
+  document.getElementById("details-panel").innerHTML =
+    `<div class="placeholder-text">Select a song to view details.</div>`;
 
+  // for no result
+  const container = document.getElementById("grid-container");
+  if (currentData.length === 0) {
+    container.style.display = "flex";
+    container.style.justifyContent = "center";
+    container.style.alignItems = "center";    
+    container.style.height = "100%"; 
+    container.innerHTML = `
+      <div class="placeholder-text">
+        No results found for "${searchTerm}"
+      </div>
+    `;
+  } else {
+    // populate grid and/or search has result
+    container.style.display = "";
+    container.style.justifyContent = "";
+    container.style.alignItems = "";    
+    container.style.height = "";     
+    songsGrid(currentData);
+  }
+}
+
+// populate grid
+document.addEventListener("DOMContentLoaded", () => {
+  if (typeof songs !== 'undefined') {
+    currentData = songs;
+    songsGrid(currentData);
+  } else {
+    console.error("Songs node lost. System requires resynchronization.");
+  }
   const searchInput = document.getElementById("search-bar");
   if (searchInput) {
     searchInput.addEventListener("input", handleSearch);
@@ -194,3 +216,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // TODO: make filtering popup/tab & functions
 // TODO: add clear status?
+// TODO: add song randomizer?

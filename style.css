@@ -10,6 +10,7 @@ html, body {
   overflow: hidden;
 }
 
+/* TODO: increase top margin */
 /* header & search/filter */
 .main-header {
   display: flex;
@@ -278,7 +279,7 @@ html, body {
 .diff-badge.CYTUS.hard { color: #b31616; background-color: #4a0606; }
 
 .diff-badge.game-badge.CYTUS { 
-  color: #008080; 
+  color: #009b9b; 
   background-color: #0e3636;
 }
 
