@@ -26,7 +26,7 @@ An interactive song catalog designed for fans of the Cytus series. This project 
 
 ## Technical Implementation
 
-**ID-Based Data Handling:**
+**ID-Based Data Handling**
 * Uses numeric IDs instead of song titles
 * Prevents issues with special characters
 * Keeps UI state consistent (e.g., selected song)
