@@ -22,6 +22,7 @@ An interactive song catalog designed for fans of the Cytus series. This project 
 ## Live Demo / Project Link
 * **GitHub Pages:** https://3nk4kuu.github.io/im-media-archive/
 
+---
 
 ## Technical Implementation
 
