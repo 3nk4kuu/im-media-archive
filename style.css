@@ -512,6 +512,8 @@ h4 { font-size: 24px; }
   flex-shrink: 0; 
   background: linear-gradient(to top, rgba(60, 81, 85, 0.4) 0%, transparent 100%);
   border: none;
+  letter-spacing: 1px;
+  gap: 4px;
 }
 
 .user-name {
