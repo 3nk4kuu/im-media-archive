@@ -8,6 +8,8 @@ html, body {
   color: #fff8d3;
   height: 100vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 h2, h3, h4 {
@@ -85,10 +87,11 @@ h4 { font-size: 24px; }
 /* grid & details containers */
 .archive-container {
   display: flex;
-  height: calc(100vh - 120px);
-  padding: 40px;
+  flex: 1; 
+  padding: 20px 40px;
   margin-inline: 80px;
   gap: 60px;
+  min-height: 0;
 }
 
 .grid-panel {
@@ -493,4 +496,25 @@ h4 { font-size: 24px; }
 .icon-btn:hover::after, .random-btn:hover::after,
 .icon-btn:hover::before, .random-btn:hover::before {
   opacity: 1;
+}
+
+/* footer */
+.main-footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 1vw;
+  font-family: 'Aldrich', sans-serif;
+  font-size: 12px;
+  color: rgba(255, 248, 211, 0.5);
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0; 
+  background: linear-gradient(to top, rgba(60, 81, 85, 0.4) 0%, transparent 100%);
+  border: none;
+}
+
+.user-name {
+  color: #fff8d3;
+  font-weight: 400;
 }
