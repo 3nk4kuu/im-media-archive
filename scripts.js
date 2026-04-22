@@ -252,8 +252,7 @@ function handleSearch() {
 
         return selectedDiffs.some(filterDiff => {
           if (filterDiff === 'special') {
-            // special includes crash and dream
-            return songDiffKeys.includes('crash') || songDiffKeys.includes('dream') || songDiffKeys.includes('special');
+            return songDiffKeys.includes('crash') || songDiffKeys.includes('dream');
           }
           return songDiffKeys.includes(filterDiff);
         });
