@@ -376,4 +376,16 @@ document.addEventListener("DOMContentLoaded", () => {
   if (resetFilterBtn) {
     resetFilterBtn.addEventListener('click', clearAllFilters);
   }
+
+  // close filters panel when clicked off
+  window.addEventListener('click', (e) => {
+    const filterPanel = document.getElementById('filter-panel');
+    const filterIcon = document.querySelector('.filter-icon');
+
+    if (filterPanel.classList.contains('open')) {
+      if (!filterPanel.contains(e.target) && !filterIcon.contains(e.target)) {
+        filterPanel.classList.remove('open');
+      }
+    }
+  });
 });
