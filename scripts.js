@@ -42,8 +42,26 @@ function resetDetailsPanel() {
   }
 }
 
+// clear filters
+function clearAllFilters() {
+  document.querySelectorAll('.filter-panel input[type="checkbox"]').forEach(cb => {
+    cb.checked = false;
+  });
+
+  const searchInput = document.getElementById("search-bar");
+  if (searchInput) searchInput.value = "";
+
+  const titleRadio = document.querySelector('.filter-panel input[name="sort_by"][value="title"]');
+  if (titleRadio) titleRadio.checked = true;
+  const ascRadio = document.querySelector('.filter-panel input[name="sort_dir"][value="asc"]');
+  if (ascRadio) ascRadio.checked = true;
+
+  handleSearch();
+}
+
 // get random song
 function getRandomSong() {
+  clearAllFilters();
   if (currentData.length === 0) return;
 
   const randomIndex = Math.floor(Math.random() * currentData.length);
@@ -346,30 +364,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const filterIcon = document.querySelector('.filter-icon'); 
   const filterPanel = document.getElementById('filter-panel');
   const closeFilterBtn = document.getElementById('close-filter-btn');
+  const resetFilterBtn = document.getElementById('reset-filter-btn');
 
   if (filterIcon && filterPanel) {
     filterIcon.addEventListener('click', () => filterPanel.classList.add('open'));
   }
+
   if (closeFilterBtn && filterPanel) {
     closeFilterBtn.addEventListener('click', () => filterPanel.classList.remove('open'));
   }
 
-  // reset filters
-  const resetFilterBtn = document.getElementById('reset-filter-btn');
   if (resetFilterBtn) {
-    // uncheck filter boxes
-    resetFilterBtn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-panel input[type="checkbox"]').forEach(cb => {
-        cb.checked = false;
-      });
-
-      // reset sorting to defaults
-      const titleRadio = document.querySelector('.filter-panel input[name="sort_by"][value="title"]');
-      if (titleRadio) titleRadio.checked = true;
-      const ascRadio = document.querySelector('.filter-panel input[name="sort_dir"][value="asc"]');
-      if (ascRadio) ascRadio.checked = true;
-
-      handleSearch();
-    });
+    resetFilterBtn.addEventListener('click', clearAllFilters);
   }
 });
