@@ -3,8 +3,8 @@
 An interactive song catalog designed for fans of the Cytus series. This project serves as a digital archive for browsing songs, filtering by characters/difficulty, and exploring detailed chart information with a CyTus II inspired interface.
 
 ## Technologies Used
-- **Frontend:** HTML, CSS, JavaScript
-- **Design:** Google Fonts, Figma (UI Planning and SVG icons)
+* **Frontend:** HTML, CSS, JavaScript
+* **Design:** Google Fonts, Figma (UI Planning and SVG icons)
 
 ---
 
@@ -18,6 +18,10 @@ An interactive song catalog designed for fans of the Cytus series. This project 
 * **Custom UI:** Features custom-styled tooltips, a unique themed scrollbar, and interactive favorite toggles.
 
 ---
+
+## Live Demo / Project Link
+* **GitHub Pages:** https://3nk4kuu.github.io/im-media-archive/
+
 
 ## Technical Implementation
 
@@ -48,6 +52,7 @@ An interactive song catalog designed for fans of the Cytus series. This project 
 * Implement song previews (play short clips when a song is selected)
 * Link difficulty tags or songs to platforms like YouTube or Spotify
 * Add background music when the site loads or when no song is selected
+* Improve overall UI layout (spacing, margins, alignment, sizing, and responsiveness for different screen sizes)
 
 ---
 
