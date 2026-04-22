@@ -14,7 +14,7 @@ An interactive song catalog designed for fans of the Cytus series. This project 
 * **Advanced Filtering:** Narrow down your search by Game (Cytus/Cytus II), Characters/Chapters, Chart Difficulty (Including default and sepcial difficulties), and personal favorites.
 * **Smart Search:** Search by song title, artist, or specific game characters/chapters.
 * **Detailed Side Panel:** View album art, BPM, track length, and chart information for all available versions of a song.
-* **Song Randomizer:** Use the "Shuffle" feature to pick a random track from your currently filtered list.
+* **Song Randomizer:** Use the "Shuffle" feature to pick a random track from the complete songs list.
 * **Custom UI:** Features custom-styled tooltips, a unique themed scrollbar, and interactive favorite toggles.
 
 ---
