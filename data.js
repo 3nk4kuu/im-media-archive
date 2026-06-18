@@ -2,6 +2,7 @@ const TAGS = {
   // games
   CYTUS: { label: "Cytus", type: "game" },
   CYTUS_II: { label: "Cytus II", type: "game" },
+  MINECRAFT: { label: "Minecraft", type: "game" },
 
   // cytus i groups
   CHAPTER_1: { label: "Chapter 1", type: "group" },
@@ -600,5 +601,24 @@ const songs = [
         }
       }
     }
-  }
+  },
+    {
+    id: 30,
+    title: "BATTLE NO.1",
+    artist: "TANO*C Sound Team",
+    bpm: "200",
+    length: 132,
+    cover: "https://static.wikia.nocookie.net/cytus/images/5/5b/BATTLENO1.png",
+    favorite: false,
+    versions: {
+      MINECRAFT: {
+        tags: ["NEKO"],
+        difficulties: {
+          easy: { level: 5 },
+          hard: { level: 9 },
+          chaos: { level: 15 },
+        }
+      }
+    }
+  },
 ];

@@ -51,6 +51,9 @@ function clearAllFilters() {
   const searchInput = document.getElementById("search-bar");
   if (searchInput) searchInput.value = "";
 
+  const excludeInput = document.getElementById("reverseSearch-bar");
+  if (excludeInput) excludeInput.value = "";
+
   const titleRadio = document.querySelector('.filter-panel input[name="sort_by"][value="title"]');
   if (titleRadio) titleRadio.checked = true;
   const ascRadio = document.querySelector('.filter-panel input[name="sort_dir"][value="asc"]');
@@ -200,8 +203,12 @@ function toggleFavorite(songId) {
 
 // search, filter, and sort
 function handleSearch() {
+  //grab search input
   const searchInput = document.getElementById("search-bar");
   const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : "";
+  //grab reverse search input
+  const excludeInput = document.getElementById("reverseSearch-bar");
+  const excludeTerm = excludeInput ? excludeInput.value.toLowerCase().trim() : "";
 
   // get active filters
   const favOnly = document.querySelector('input[name="fav"]')?.checked;
@@ -209,9 +216,9 @@ function handleSearch() {
   const selectedChars = Array.from(document.querySelectorAll('input[name="character"]:checked')).map(el => el.value);
   const selectedDiffs = Array.from(document.querySelectorAll('input[name="diff"]:checked')).map(el => el.value.toLowerCase());
 
-  let filteredData = songs.filter(song => {
+   let filteredData = songs.filter(song => {
     // search
-    if (searchTerm) {
+    if (searchTerm !=="") {
       const matchesTitle = song.title.toLowerCase().includes(searchTerm);
       const matchesArtist = song.artist.toLowerCase().includes(searchTerm);
       const matchesTags = Object.keys(song.versions || {}).some(gameKey => {
@@ -225,6 +232,32 @@ function handleSearch() {
       });
       if (!matchesTitle && !matchesArtist && !matchesTags) return false;
     }
+
+
+    // reverse search
+    if (excludeTerm !=="") {
+      //check if title has exclude term
+      const matchesTitle2 = song.title.toLowerCase().includes(excludeTerm);
+       //check if artist has exclude term
+      const matchesArtist2 = song.artist.toLowerCase().includes(excludeTerm);
+          const matchesTags = Object.keys(song.versions || {}).some(gameKey => {
+            //checks if gameName includes term
+        const gameNameMatch = TAGS[gameKey]?.label?.toLowerCase().includes(excludeTerm);
+        const specificTagsMatch = (song.versions[gameKey].tags || []).some(tag => {
+            let tagLabel = TAGS[tag]?.label?.toLowerCase() || "";
+            tagLabel = tagLabel.replace("chapter", "").trim();
+            return tagLabel && tagLabel.includes(excludeTerm);
+        });
+        //return songs w name or tags that doesnt match
+        return gameNameMatch;
+      });
+      //return songs w title or artist that doesnt match
+      if (matchesTitle2 || matchesArtist2 || matchesTags) return false ;
+    }
+
+    
+      
+    
 
     // fav filter
     if (favOnly && !song.favorite) return false;
@@ -344,6 +377,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("search-bar");
   if (searchInput) {
     searchInput.addEventListener("input", handleSearch);
+  }
+
+  const excludeInput = document.getElementById("reverseSearch-bar");
+  if (excludeInput) {
+    excludeInput.addEventListener("input", handleSearch);
   }
 
   const filterInputs = document.querySelectorAll('.filter-panel input');
